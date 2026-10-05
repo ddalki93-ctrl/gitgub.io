@@ -37,6 +37,9 @@
   nav.top .links a{color:var(--muted);text-decoration:none;font-size:14.5px;white-space:nowrap}
   nav.top .links a:hover{color:var(--accent)}
   nav.top .menu{display:none}
+  nav.top .pdf-btn{display:inline-flex;align-items:center;gap:6px;height:34px;padding:0 14px;border-radius:17px;background:var(--ink);color:#fff;
+    text-decoration:none;font-size:13.5px;font-weight:700;white-space:nowrap}
+  nav.top .pdf-btn:hover{background:var(--accent)}
   nav.top .menu summary{list-style:none;cursor:pointer;display:inline-flex;align-items:center;gap:6px;height:34px;padding:0 14px;
     border:1px solid var(--line);border-radius:17px;font-size:14px;font-weight:600;color:var(--ink);background:#fff}
   nav.top .menu summary::-webkit-details-marker{display:none}
@@ -146,6 +149,7 @@
   @media (max-width:900px){
     nav.top .links{display:none}
     nav.top .menu{display:block}
+    nav.top .wrap{gap:8px}
     .slide{grid-template-columns:1fr;min-height:0}
     .slide .right{grid-template-columns:1fr !important}
     .facts{grid-template-columns:1fr;gap:24px}
@@ -165,7 +169,7 @@
     body{font-size:15px;line-height:1.7}
     .wrap{padding:0 18px}
     html{scroll-padding-top:56px}
-    nav.top .wrap{height:52px}
+    nav.top .wrap{height:52px;gap:8px}
     nav.top .links{display:none}
     nav.top .menu{display:block}
 
@@ -232,10 +236,16 @@
   }
   @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
   @media print{
-    nav.top{display:none}
-    .slide{break-inside:avoid;box-shadow:none;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+    @page{size:A4 landscape;margin:10mm}
+    *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+    nav.top,.to-top,dialog{display:none !important}
+    header.intro{padding-top:0}
+    .slide{break-inside:avoid;box-shadow:0 0 0 1px var(--line)}
     .company{break-before:page;margin-top:0}
+    .stage-label{break-after:avoid}
+    figure button{box-shadow:none;border:1px solid var(--line)}
     .todo{display:none}
+    footer{margin-top:24px;padding:12px 0}
   }
 </style>
 </head>
@@ -250,6 +260,7 @@
       <a href="#ddakdu">딱두패밀리</a>
       <a href="#intellicode">인텔리코드</a>
     </div>
+    <a class="pdf-btn" href="JangYuji_Portfolio.pdf" download="장유지_IT기획PM_포트폴리오.pdf" aria-label="포트폴리오 PDF 다운로드"><svg width="14" height="14" viewBox="0 0 16 16" aria-hidden="true"><path d="M8 1.5v8.5M4.5 6.8 8 10.3l3.5-3.5M2.5 13.5h11" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>PDF</a>
     <details class="menu">
       <summary>목차</summary>
       <div class="menu-panel">
