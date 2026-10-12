@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow, noarchive">
+<meta name="googlebot" content="noindex, nofollow">
+<title>SAfe 크립토 담보대출 프로토타입 | 장유지</title>
+<style>body{margin:0}[hidden]{display:none!important}</style>
+</head>
+<body>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans+KR:wght@400;500;600;700&display=swap">
+<style>
+/* Layout: 데스크톱은 [폰 목업 | 기획 컨트롤 패널] 2열, 모바일은 폰(전체 폭) 아래 패널 */
+:root{
+  --page:#E9EDEB; --panel:#FFFFFF; --ink:#16201D; --muted:#5D6B66; --line:#D5DDD9;
+  --brand:#0E5E52; --brand-soft:#E3F0EC; --chip:#F1F4F3;
+  --sans:"IBM Plex Sans KR","Apple SD Gothic Neo","Malgun Gothic",system-ui,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,"SFMono-Regular",Menlo,monospace;
+  /* 앱 내부(라이트 고정 목업) */
+  --a-bg:#F3F6F5; --a-card:#FFFFFF; --a-ink:#14201C; --a-sub:#64736E; --a-line:#E2E8E5;
+  --ok:#1F9D6B; --warn:#D99A00; --call:#D63A3A; --liq:#1B1B1B;
+  --ok-bg:#E5F5EE; --warn-bg:#FFF5D9; --call-bg:#FDE8E8; --liq-bg:#E7E7E7;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --page:#0F1513; --panel:#18211E; --ink:#E6ECE9; --muted:#97A7A1; --line:#2B3833;
+  --brand:#5CC2AE; --brand-soft:#1D3530; --chip:#212C28; color-scheme:dark }}
+:root[data-theme="dark"]{
+  --page:#0F1513; --panel:#18211E; --ink:#E6ECE9; --muted:#97A7A1; --line:#2B3833;
+  --brand:#5CC2AE; --brand-soft:#1D3530; --chip:#212C28; color-scheme:dark }
+html,body{height:auto}
+body{background:var(--page);color:var(--ink);font-family:var(--sans);padding-inline:16px;padding-block:28px}
+*{box-sizing:border-box}
+button{font:inherit;cursor:pointer}
+button:focus-visible,input:focus-visible,select:focus-visible,summary:focus-visible{outline:2px solid #3B82F6;outline-offset:2px}
+.wrap{display:grid;grid-template-columns:auto minmax(0,400px);gap:36px;justify-content:center;align-items:start;max-width:1000px;margin:0 auto}
+@media (max-width:820px){.wrap{grid-template-columns:minmax(0,1fr);gap:24px}}
+
+/* ---------- 폰 ---------- */
+.phone{width:390px;height:812px;border-radius:46px;background:#0B0F0E;padding:12px;box-shadow:0 30px 60px -30px rgba(0,0,0,.45)}
+@media (max-width:820px){.phone{width:100%;max-width:430px;margin:0 auto;height:780px;border-radius:36px;padding:8px}}
+.screen{position:relative;height:100%;border-radius:36px;overflow:hidden;background:var(--a-bg);color:var(--a-ink);display:flex;flex-direction:column;font-size:14px;color-scheme:light}
+@media (max-width:820px){.screen{border-radius:28px}}
+.sbar{display:flex;justify-content:space-between;align-items:center;padding:12px 26px 4px;font-size:13px;font-weight:600;font-variant-numeric:tabular-nums}
+.sbar i{display:inline-block;width:22px;height:11px;border:1.5px solid currentColor;border-radius:3px;position:relative;vertical-align:-1px}
+.sbar i:after{content:"";position:absolute;inset:1.5px;right:5px;background:currentColor;border-radius:1px}
+.hd{display:flex;align-items:center;gap:8px;padding:6px 14px 10px;min-height:48px}
+.hd h1{font-size:17px;font-weight:700;margin:0;flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.hd .logo{font-weight:700;font-size:19px;letter-spacing:-.02em;color:#0E5E52;flex:1}
+.hd .logo b{color:var(--a-ink)}
+.ib{width:36px;height:36px;border:0;background:transparent;border-radius:10px;display:grid;place-items:center;color:var(--a-ink)}
+.ib:hover{background:#E6ECE9}
+.ib svg{width:22px;height:22px}
+.sid{font-family:var(--mono);font-size:10.5px;font-weight:600;background:#14201C;color:#fff;padding:3px 7px;border-radius:6px;letter-spacing:.02em}
+.scr{flex:1;overflow-y:auto;overflow-x:hidden;padding:4px 16px 20px;display:flex;flex-direction:column;gap:12px}
+.scr::-webkit-scrollbar{width:0}
+.foot{padding:10px 16px 14px;background:linear-gradient(to top,var(--a-bg) 75%,transparent);display:flex;gap:8px}
+.gnb{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--a-line);background:#fff;padding:6px 6px 18px}
+.gnb button{border:0;background:transparent;display:flex;flex-direction:column;align-items:center;gap:3px;font-size:11px;color:#9AA7A2;padding:6px 0}
+.gnb button svg{width:22px;height:22px}
+.gnb button.on{color:var(--a-ink);font-weight:600}
+
+.card{background:var(--a-card);border-radius:18px;padding:16px;display:flex;flex-direction:column;gap:12px}
+.ct{font-size:15px;font-weight:700;margin:0}
+.sub{color:var(--a-sub);font-size:12.5px}
+.row{display:flex;justify-content:space-between;align-items:center;gap:12px}
+.row > :first-child{color:var(--a-sub)}
+.row > :last-child{font-weight:600;text-align:right;font-variant-numeric:tabular-nums}
+.big{font-size:30px;font-weight:700;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.num{font-variant-numeric:tabular-nums}
+.btn{flex:1;border:0;border-radius:14px;padding:15px 12px;font-weight:700;font-size:15px;background:#0E5E52;color:#fff}
+.btn:disabled{background:#C9D3CF;color:#fff;cursor:not-allowed}
+.btn.sec{background:#E3EBE8;color:var(--a-ink)}
+.btn.dark{background:#14201C}
+.btn.red{background:var(--call)}
+.lnk{border:0;background:transparent;color:#0E5E52;font-weight:600;padding:0;font-size:13px}
+.chips{display:flex;gap:6px;flex-wrap:wrap}
+.chip{border:1px solid var(--a-line);background:#fff;border-radius:999px;padding:7px 12px;font-size:12.5px;font-weight:600;color:var(--a-ink)}
+.chip.on{background:#14201C;border-color:#14201C;color:#fff}
+.pill{display:inline-flex;align-items:center;gap:5px;border-radius:999px;padding:3px 9px;font-size:11.5px;font-weight:700}
+.pill:before{content:"";width:6px;height:6px;border-radius:50%;background:currentColor}
+.s-ok{color:var(--ok);background:var(--ok-bg)} .s-warn{color:#9A6B00;background:var(--warn-bg)} .s-call{color:var(--call);background:var(--call-bg)} .s-liq{color:#fff;background:var(--liq)}
+.s-done{color:#5D6B66;background:#ECEFEE}
+.banner{display:flex;gap:12px;align-items:center;border-radius:16px;padding:14px;border:0;text-align:left;width:100%}
+.banner .bi{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;font-weight:700;flex:none;color:#fff}
+.banner b{display:block;font-size:14px}
+.banner span{font-size:12px;opacity:.85}
+.b-ok{background:var(--ok-bg);color:#11603F} .b-ok .bi{background:var(--ok)}
+.b-warn{background:var(--warn-bg);color:#6B4A00} .b-warn .bi{background:var(--warn)}
+.b-call{background:var(--call-bg);color:#8E1F1F} .b-call .bi{background:var(--call)}
+.b-liq{background:#1B1B1B;color:#fff} .b-liq .bi{background:#fff;color:#1B1B1B}
+.bar{position:relative;height:10px;border-radius:99px;background:#EDF1EF;overflow:visible}
+.bar .fill{position:absolute;left:0;top:0;bottom:0;border-radius:99px;transition:width .35s ease,background .35s}
+.bar .mk{position:absolute;top:-3px;bottom:-3px;width:2px;background:#14201C;opacity:.35}
+.scale{position:relative;height:16px;font-size:10.5px;color:var(--a-sub);font-variant-numeric:tabular-nums}
+.scale span{position:absolute;transform:translateX(-50%)}
+.coin{width:36px;height:36px;border-radius:50%;display:grid;place-items:center;font-weight:700;color:#fff;flex:none;font-size:15px}
+.c-BTC{background:#E8912D}.c-ETH{background:#5468C9}.c-USDT{background:#26A17B}
+.item{display:flex;align-items:center;gap:12px;padding:4px 0;border:0;background:transparent;width:100%;text-align:left;color:inherit}
+.item .grow{flex:1;min-width:0}
+.item .grow b{display:block;font-size:14px}
+.item .grow span{font-size:12px;color:var(--a-sub)}
+.item .r{text-align:right;font-variant-numeric:tabular-nums}
+.item .r b{display:block;font-size:14px}
+.item .r span{font-size:12px;color:var(--a-sub)}
+.item:disabled{opacity:.45;cursor:not-allowed}
+.sel{border:1.5px solid var(--a-line);border-radius:16px;padding:12px 14px;background:#fff}
+.sel.on{border-color:#0E5E52;box-shadow:0 0 0 3px #DCEDE8}
+.field{display:flex;align-items:center;gap:8px;border:1.5px solid var(--a-line);border-radius:14px;padding:4px 14px;background:#fff}
+.field.err{border-color:var(--call)}
+.field input{flex:1;min-width:0;border:0;outline:0;font:inherit;font-size:22px;font-weight:700;padding:10px 0;background:transparent;color:var(--a-ink);font-variant-numeric:tabular-nums}
+.field input:focus-visible{outline:0}
+.field:focus-within{border-color:#0E5E52}
+.field em{font-style:normal;font-weight:600;color:var(--a-sub)}
+.msg{font-size:12.5px;color:var(--call);font-weight:500}
+.hint{font-size:12px;color:var(--a-sub)}
+select.dd{width:100%;border:1.5px solid var(--a-line);border-radius:12px;padding:11px 12px;font:inherit;background:#fff;color:var(--a-ink)}
+label.lb{font-size:12.5px;font-weight:600;color:var(--a-sub);display:block;margin-bottom:6px}
+input[type=range]{width:100%;accent-color:#0E5E52}
+.steps{display:flex;flex-direction:column;gap:10px;margin:0;padding:0;list-style:none}
+.steps li{display:flex;gap:10px;align-items:center;color:#A3AEAA;font-weight:500}
+.steps li i{width:22px;height:22px;border-radius:50%;border:2px solid #CED6D3;display:grid;place-items:center;font-style:normal;font-size:12px;flex:none}
+.steps li.done{color:var(--a-ink)} .steps li.done i{background:#0E5E52;border-color:#0E5E52;color:#fff}
+.steps li.now{color:var(--a-ink);font-weight:700} .steps li.now i{border-color:#0E5E52;border-top-color:transparent;animation:spin .9s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.hero{display:flex;flex-direction:column;align-items:center;text-align:center;gap:8px;padding:18px 0 6px}
+.hero .ok{width:64px;height:64px;border-radius:50%;background:#0E5E52;color:#fff;display:grid;place-items:center;font-size:30px}
+.hero h2{margin:4px 0 0;font-size:21px}
+.toast{position:absolute;left:16px;right:16px;bottom:96px;background:#14201C;color:#fff;border-radius:12px;padding:12px 14px;font-size:13px;text-align:center;animation:up .25s ease}
+@keyframes up{from{transform:translateY(10px);opacity:0}}
+.sig{width:100%;height:190px;border:1.5px dashed #B9C6C1;border-radius:14px;background:#FAFBFB;touch-action:none;display:block}
+.chk{display:flex;gap:10px;align-items:flex-start;border:0;background:transparent;text-align:left;padding:4px 0;color:inherit;width:100%}
+.chk i{width:22px;height:22px;border-radius:7px;border:2px solid #C3CEC9;flex:none;display:grid;place-items:center;font-style:normal;color:#fff;font-size:13px;margin-top:1px}
+.chk.on i{background:#0E5E52;border-color:#0E5E52}
+.chk b{display:block;font-size:14px} .chk span{font-size:12px;color:var(--a-sub)}
+details.faq{border-top:1px solid var(--a-line);padding:10px 0}
+details.faq summary{font-weight:600;cursor:pointer;list-style:none;display:flex;justify-content:space-between}
+details.faq summary:after{content:"+";color:var(--a-sub)} details.faq[open] summary:after{content:"–"}
+details.faq p{margin:8px 0 0;color:var(--a-sub);font-size:13px;line-height:1.55}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.tile{background:#F4F7F6;border-radius:12px;padding:10px 12px}
+.tile span{font-size:11.5px;color:var(--a-sub);display:block}
+.tile b{font-size:15px;font-variant-numeric:tabular-nums}
+.empty{text-align:center;color:var(--a-sub);padding:26px 0}
+.note{background:#F4F7F6;border-radius:12px;padding:12px;font-size:12.5px;color:var(--a-sub);line-height:1.55}
+.cmp{display:flex;align-items:center;justify-content:center;gap:14px;font-size:22px;font-weight:700;font-variant-numeric:tabular-nums}
+.cmp small{display:block;font-size:11px;color:var(--a-sub);font-weight:500;text-align:center}
+
+/* ---------- 패널 ---------- */
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:20px;padding:22px;display:flex;flex-direction:column;gap:22px;min-width:0}
+.panel h2{margin:0;font-size:21px;line-height:1.3;text-wrap:balance;letter-spacing:-.01em}
+.panel p{margin:0;color:var(--muted);font-size:13.5px;line-height:1.6}
+.eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--brand);font-weight:600}
+.sec h3{margin:0 0 10px;font-size:13px;font-weight:700;display:flex;justify-content:space-between;align-items:baseline;gap:8px}
+.sec h3 span{font-family:var(--mono);font-weight:500;color:var(--muted);font-size:12px}
+.pchips{display:flex;gap:6px;flex-wrap:wrap}
+.pchip{border:1px solid var(--line);background:var(--chip);color:var(--ink);border-radius:999px;padding:6px 11px;font-size:12.5px;font-weight:600}
+.pchip.on{background:var(--brand);border-color:var(--brand);color:var(--panel)}
+.pchip .dot{display:inline-block;width:7px;height:7px;border-radius:50%;margin-right:5px;vertical-align:1px}
+.ptbl{width:100%;border-collapse:collapse;font-size:12.5px;font-variant-numeric:tabular-nums}
+.ptbl td{padding:6px 0;border-bottom:1px solid var(--line)}
+.ptbl td:last-child{text-align:right;font-family:var(--mono)}
+.ptbl tr:last-child td{border-bottom:0}
+.policy{display:grid;grid-template-columns:50fr 10fr 5fr 15fr;height:26px;border-radius:8px;overflow:hidden;font-size:11px;font-weight:700;color:#fff}
+.policy div{display:grid;place-items:center}
+.pscale{position:relative;height:16px;font-family:var(--mono);font-size:10.5px;color:var(--muted)}
+.pscale span{position:absolute;transform:translateX(-50%)}
+.jump{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px}
+.jump button{display:flex;gap:8px;align-items:baseline;text-align:left;border:1px solid var(--line);background:transparent;color:var(--ink);border-radius:10px;padding:8px 10px;font-size:12.5px;min-width:0}
+.jump button code{font-family:var(--mono);font-size:10.5px;color:var(--brand);font-weight:600;flex:none}
+.jump button span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.jump button:hover{border-color:var(--brand)}
+.prow{display:flex;gap:8px;flex-wrap:wrap}
+.pbtn{border:1px solid var(--line);background:transparent;color:var(--ink);border-radius:10px;padding:8px 12px;font-size:12.5px;font-weight:600}
+.pbtn:hover{border-color:var(--brand)}
+.credit{font-size:12px;color:var(--muted);border-top:1px solid var(--line);padding-top:14px;line-height:1.6}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+
+<div class="wrap">
+  <div class="phone"><div class="screen" id="app"></div></div>
+
+  <aside class="panel" aria-label="프로토타입 컨트롤">
+    <div style="display:flex;flex-direction:column;gap:8px">
+      <div class="eyebrow">Interactive prototype · 화면설계서 42 frames</div>
+      <h2>SAfe 크립토 담보대출</h2>
+      <p>Figma 화면설계서와 기능정의서를 바탕으로 만든 동작 프로토타입이에요. 담보 수량, 대출 금액, 상환 금액을 바꾸면 LTV와 상태가 바로 다시 계산돼요. 모든 수치는 예시 값이에요.</p>
+    </div>
+
+    <div class="sec">
+      <h3>시장 가격 변동 <span id="pf"></span></h3>
+      <input type="range" id="mkt" min="50" max="130" step="1" value="100" aria-label="시장 가격 변동률">
+      <div class="pchips" id="scen" style="margin-top:10px"></div>
+      <p style="margin-top:10px;font-size:12.5px">가격을 내리면 홈 배너, 대출 상태, 리스크·청산 화면이 함께 바뀌어요.</p>
+    </div>
+
+    <div class="sec">
+      <h3>현재 시세 <span>KRW</span></h3>
+      <table class="ptbl" id="ptbl"></table>
+    </div>
+
+    <div class="sec">
+      <h3>LTV 기준 (통일안)</h3>
+      <div class="policy" aria-label="LTV 구간">
+        <div style="background:var(--ok)">안정</div><div style="background:var(--warn)">주의</div><div style="background:var(--call)">콜</div><div style="background:var(--liq)">청산</div>
+      </div>
+      <div class="pscale"><span style="left:0%;transform:none">0%</span><span style="left:62.5%">50</span><span style="left:75%">60</span><span style="left:81.25%">65</span><span style="left:100%;transform:translateX(-100%)">80%</span></div>
+      <p style="margin-top:8px;font-size:12.5px">설계서에 화면마다 다르게 적혀 있던 기준(65·70% 청산 등)을 하나로 맞춘 가정치예요. 신규 대출 한도는 BTC 45%, ETH 40%예요.</p>
+    </div>
+
+    <div class="sec">
+      <h3>화면 바로가기 <span>화면 ID</span></h3>
+      <div class="jump" id="jump"></div>
+    </div>
+
+    <div class="prow">
+      <button class="pbtn" id="tgid">화면 ID 숨기기</button>
+      <button class="pbtn" id="reset">처음 상태로</button>
+      <a class="pbtn" href="./#thirdspace" style="text-decoration:none">← 포트폴리오로</a>
+    </div>
+  </aside>
+</div>
+
+<script>
+(function(){
+const BASE={BTC:98000000,ETH:4200000,USDT:1380};
+const A={BTC:{name:'비트코인',max:45,min:0.001,dec:4,sym:'₿'},ETH:{name:'이더리움',max:40,min:0.01,dec:4,sym:'Ξ'},USDT:{name:'테더',max:45,min:10,dec:2,sym:'₮'}};
+const P={warn:50,call:60,liq:65};
+const ST={ok:['안정','s-ok','b-ok'],warn:['주의','s-warn','b-warn'],call:['마진콜','s-call','b-call'],liq:['청산','s-liq','b-liq']};
+const RATE={'고정':8.5,'변동':7.9};
+const TODAY='2026.10.12';
+
+function fresh(){return{
+  f:100, showId:true,
+  wallet:{BTC:0.7051,ETH:6,USDT:1500},
+  loans:[
+    {id:'LOAN-001',asset:'BTC',qty:0.5,principal:20000000,rtype:'고정',rate:8.5,method:'만기일시상환',term:12,start:'2026.03.15',end:'2027.03.15',interest:141667,status:'active'},
+    {id:'LOAN-002',asset:'ETH',qty:3,principal:4500000,rtype:'변동',rate:7.9,method:'만기일시상환',term:6,start:'2026.07.02',end:'2027.01.02',interest:29625,status:'active'}
+  ],
+  log:[
+    {k:'대출',t:'대출 실행 · LOAN-002',v:'+₩4,500,000',d:'2026.07.02 10:12',s:'완료'},
+    {k:'담보',t:'담보 예치 · ETH',v:'3.0000 ETH',d:'2026.07.02 10:05',s:'완료'},
+    {k:'상환',t:'이자 납부 · LOAN-001',v:'₩141,667',d:'2026.04.15 09:00',s:'완료'},
+    {k:'대출',t:'대출 실행 · LOAN-001',v:'+₩20,000,000',d:'2026.03.15 14:20',s:'완료'},
+    {k:'담보',t:'담보 예치 · BTC',v:'0.5000 BTC',d:'2026.03.15 14:02',s:'완료'}
+  ],
+  stack:[{id:'HOM-01'}], toast:null, draft:{}, d:{}
+}}
+let S=fresh();
+
+/* ---------- 계산 ---------- */
+const price=a=>BASE[a]*S.f/100;
+const val=l=>l.qty*price(l.asset);
+const ltv=l=>l.principal/val(l)*100;
+const stat=v=>v>=P.liq?'liq':v>=P.call?'call':v>=P.warn?'warn':'ok';
+const liqPrice=l=>l.principal/(l.qty*P.liq/100);
+const active=()=>S.loans.filter(l=>l.status==='active');
+const worst=()=>active().slice().sort((a,b)=>ltv(b)-ltv(a))[0];
+const loan=id=>S.loans.find(l=>l.id===id);
+const W=n=>'₩'+Math.round(n).toLocaleString('ko-KR');
+const Q=(n,a)=>Number(n).toLocaleString('ko-KR',{minimumFractionDigits:A[a].dec,maximumFractionDigits:A[a].dec})+' '+a;
+const pct=n=>(isFinite(n)?n:0).toFixed(1)+'%';
+const pnum=s=>{const v=parseFloat(String(s||'').replace(/,/g,''));return isFinite(v)?v:0};
+const now=()=>{const d=new Date();return TODAY+' '+String(d.getHours()).padStart(2,'0')+':'+String(d.getMinutes()).padStart(2,'0')};
+const pill=k=>`<span class="pill ${ST[k][1]}">${ST[k][0]}</span>`;
+function monthly(amt,rate,term,method){const r=rate/100/12;if(method==='만기일시상환')return amt*r;return amt*r/(1-Math.pow(1+r,-term));}
+function addMonths(m){const d=new Date(2026,9,12);d.setMonth(d.getMonth()+m);return d.getFullYear()+'. '+(d.getMonth()+1)+'. '+d.getDate()+'.';}
+function bar(v){const w=Math.min(v,80)/80*100;const k=stat(v);const c={ok:'var(--ok)',warn:'var(--warn)',call:'var(--call)',liq:'var(--liq)'}[k];
+  return `<div class="bar"><div class="fill" style="width:${w}%;background:${c}"></div><div class="mk" style="left:62.5%"></div><div class="mk" style="left:75%"></div><div class="mk" style="left:81.25%"></div></div>
+  <div class="scale"><span style="left:62.5%">50</span><span style="left:84%">65 청산</span></div>`}
+
+/* ---------- 아이콘 ---------- */
+const I={
+ back:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>',
+ bell:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8a6 6 0 1112 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 003.4 0"/></svg>',
+ menu:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>',
+ home:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M3 10.5L12 3l9 7.5V20a1 1 0 01-1 1h-5v-6H9v6H4a1 1 0 01-1-1z"/></svg>',
+ list:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M8 6h13M8 12h13M8 18h13M3.5 6h.01M3.5 12h.01M3.5 18h.01"/></svg>',
+ wallet:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><rect x="3" y="6" width="18" height="14" rx="2"/><path d="M3 10h18M16 15h2"/></svg>',
+ loan:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18M17 7.5C17 5.6 14.8 4.5 12 4.5S7 5.6 7 7.5 9 10.2 12 11s5 1.6 5 3.5-2.2 3-5 3-5-1.1-5-3"/></svg>'
+};
+
+/* ---------- 라우터 ---------- */
+const cur=()=>S.stack[S.stack.length-1];
+function go(id,p){S.stack.push(Object.assign({id},p||{}));S.d={};render(true)}
+function back(){if(S.stack.length>1){S.stack.pop();S.d={};render(true)}}
+function tab(id){S.stack=[{id}];S.d={};render(true)}
+function toast(t){S.toast=t;render();clearTimeout(toast.h);toast.h=setTimeout(()=>{S.toast=null;render()},2200)}
+let tick=0;
+function run(steps,ms,done){const my=++tick;S.d.phase=0;render();const step=()=>{if(my!==tick)return;S.d.phase++;if(S.d.phase>=steps){done();}render();if(S.d.phase<steps)setTimeout(step,ms)};setTimeout(step,ms)}
+
+/* ---------- 화면 ---------- */
+const V={};
+
+V['ONB-01']=()=>{const d=S.d;const em=d.em??'safe.user@example.com',pw=d.pw??'';
+  const emErr=em&&!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(em);const ok=!emErr&&em&&pw.length>0;
+  return{sid:'ONB-01',noHead:true,body:`
+  <div class="hero" style="padding-top:40px"><div style="font-size:34px;font-weight:700;color:#0E5E52;letter-spacing:-.03em">SA<span style="color:#14201C">fe</span></div><div class="sub">안전한 크립토 담보 대출</div></div>
+  <div class="card">
+    <div><label class="lb" for="em">이메일</label><input class="dd" id="em" data-in="em" value="${em}" placeholder="이메일을 입력하세요" autocomplete="off">${emErr?'<div class="msg" style="margin-top:6px">올바른 이메일 형식을 입력해주세요</div>':''}</div>
+    <div><label class="lb" for="pw">비밀번호</label><input class="dd" id="pw" type="password" data-in="pw" value="${pw}" placeholder="비밀번호를 입력하세요">${d.tried&&!pw?'<div class="msg" style="margin-top:6px">비밀번호를 입력해주세요</div>':''}</div>
+    <button class="btn" data-act="login" ${ok?'':'disabled'}>로그인</button>
+    <button class="btn sec" data-act="na">회원가입</button>
+    <div class="row" style="justify-content:center;gap:16px"><button class="lnk" data-act="na">이메일 찾기</button><button class="lnk" data-act="na">비밀번호 찾기</button></div>
+  </div>
+  <div class="chips" style="justify-content:center"><button class="chip" data-act="login">카카오로 시작</button><button class="chip" data-act="login">Apple</button><button class="chip" data-act="login">Google</button></div>
+  <div class="hint" style="text-align:center">비밀번호에 아무 값이나 넣으면 로그인돼요.</div>`}};
+
+V['HOM-01']=()=>{const ls=active();
+  if(!ls.length)return{sid:'HOM-01',home:true,tab:'HOM-01',body:`
+    <div class="card" style="align-items:center;text-align:center;padding:26px 16px"><b style="font-size:17px">진행 중인 대출이 없어요</b><span class="sub">담보를 예치하고 첫 대출을 시작해보세요</span></div>
+    <div class="card"><p class="ct">빠른 시작</p>
+      <button class="item" data-go="LON-01"><span class="coin c-BTC">${A.BTC.sym}</span><span class="grow"><b>대출 가능 금액 확인하기</b><span>내 자산으로 얼마나 빌릴 수 있는지 확인하세요</span></span></button>
+      <button class="item" data-tab="WAL-01"><span class="coin" style="background:#0E5E52">↓</span><span class="grow"><b>지갑 자산 확인하기</b><span>보유 자산과 담보 가능 수량을 확인하세요</span></span></button></div>
+    ${faq()}`,cta:`<button class="btn" data-go="LON-01">첫 대출 시작하기</button>`};
+  const w=worst(),k=stat(ltv(w));
+  const tv=ls.reduce((s,l)=>s+val(l),0),tp=ls.reduce((s,l)=>s+l.principal,0),tl=tp/tv*100;
+  const msg={ok:['현재 고객님의 자산은 안전합니다.','모든 대출이 안정 구간이에요'],warn:['주의가 필요합니다. LTV 관리를 권장해요',w.id+' LTV '+pct(ltv(w))],call:['즉시 대응이 필요해요','담보를 추가하거나 상환해주세요 · '+w.id],liq:['청산 기준에 도달했어요',w.id+' 청산 안내 확인하기']}[k];
+  const to=k==='liq'?`data-go="LIQ-01" data-loan="${w.id}"`:k==='ok'?`data-go="HOM-02" data-loan="${w.id}"`:`data-go="RSK-01" data-loan="${w.id}"`;
+  const coll={};ls.forEach(l=>coll[l.asset]=(coll[l.asset]||0)+l.qty);
+  return{sid:'HOM-01',home:true,tab:'HOM-01',body:`
+  <button class="banner ${ST[k][2]}" ${to}><span class="bi">${k==='ok'?'✓':'!'}</span><span><b>${msg[0]}</b><span>${msg[1]}</span></span></button>
+  <button class="card" style="border:0;text-align:left;color:inherit" data-go="HOM-02" data-loan="${w.id}">
+    <div class="row"><p class="ct" style="color:var(--a-ink)">나의 대출 현황</p><span class="lnk">LTV 상세 ›</span></div>
+    <div><span class="sub">전체 LTV</span><div style="display:flex;align-items:baseline;gap:8px"><span class="big">${pct(tl)}</span><span class="sub">/ ${P.liq}% 강제청산</span></div></div>
+    ${bar(tl)}
+    <div class="grid2"><div class="tile"><span>담보 가치</span><b>${W(tv)}</b></div><div class="tile"><span>대출 원금</span><b>${W(tp)}</b></div></div>
+  </button>
+  <div class="card"><p class="ct">보유 담보 자산</p>
+    ${Object.keys(coll).map(a=>`<div class="item"><span class="coin c-${a}">${A[a].sym}</span><span class="grow"><b>${A[a].name}</b><span>${a}</span></span><span class="r"><b>${Q(coll[a],a)}</b><span>${W(coll[a]*price(a))}</span></span></div>`).join('')}
+    <div class="grid2"><button class="btn sec" data-go="RSK-03" data-loan="${w.id}">담보 추가</button><button class="btn sec" data-go="RPM-01" data-loan="${w.id}">대출 상환</button></div>
+  </div>
+  ${faq()}`,cta:`<button class="btn" data-go="LON-01">＋ 새 대출 신청하기</button>`}};
+function faq(){return`<div class="card" style="gap:0"><p class="ct" style="margin-bottom:6px">자주 묻는 질문</p>
+  <details class="faq"><summary>LTV란 무엇인가요?</summary><p>담보 가치 대비 대출 원금의 비율이에요. 담보 가격이 내려가면 LTV가 올라가요.</p></details>
+  <details class="faq"><summary>청산은 어떻게 동작하나요?</summary><p>LTV가 ${P.liq}%에 도달하면 담보 일부를 매도해 대출을 상환하고, 남은 자산은 지갑으로 돌려드려요.</p></details>
+  <details class="faq"><summary>담보 대출은 안전한가요?</summary><p>담보 자산은 분리 보관되고, LTV ${P.warn}%부터 단계별 알림을 보내드려요.</p></details></div>`}
+
+V['HOM-02']=p=>{const l=loan(p.loan);const sim=S.d.sim??0;const pr=price(l.asset)*(1+sim/100);const sl=l.principal/(l.qty*pr)*100;const lv=ltv(l);
+  return{sid:'HOM-02',title:'LTV 상세 분석',body:`
+  <div class="card"><div class="row"><span>${l.id} · ${l.asset}</span>${pill(stat(lv))}</div><span class="big">${pct(lv)}</span>${bar(lv)}
+    <div class="grid2"><div class="tile"><span>청산 기준 LTV</span><b>${P.liq}%</b></div><div class="tile"><span>청산까지 남은 여유</span><b>${(P.liq-lv).toFixed(1)}%p</b></div>
+    <div class="tile"><span>현재 가격</span><b>${W(price(l.asset))}</b></div><div class="tile"><span>청산 가격</span><b>${W(liqPrice(l))}</b></div></div></div>
+  <div class="card"><p class="ct">가격 변동 시뮬레이션</p>
+    <label class="lb" for="sim">담보 가격 변동률 <b class="num" style="color:var(--a-ink)">${sim>0?'+':''}${sim}%</b></label>
+    <input type="range" id="sim" data-in="sim" min="-50" max="30" step="1" value="${sim}">
+    <div class="row"><span>예상 가격</span><span>${W(pr)}</span></div>
+    <div class="row"><span>예상 LTV</span><span>${pct(sl)} ${pill(stat(sl))}</span></div>
+    <div class="note">${stat(sl)==='ok'?'현재 안전한 LTV 수준이에요. 상태를 유지하면 청산 위험이 낮아요.':stat(sl)==='liq'?'이 가격에서는 청산이 진행돼요. 담보 추가나 상환으로 미리 대비하세요.':'주의가 필요한 구간이에요. 담보를 추가하거나 일부 상환하면 LTV를 낮출 수 있어요.'}</div></div>`,
+  cta:`<button class="btn sec" data-go="RSK-03" data-loan="${l.id}">담보 추가하기</button><button class="btn" data-go="RPM-01" data-loan="${l.id}">일부 상환하기</button>`}};
+
+V['RSK-01']=p=>{const l=loan(p.loan);const lv=ltv(l),k=stat(lv);const margin=(price(l.asset)-liqPrice(l))/price(l.asset)*100;
+  const head={ok:['안정 상태예요','현재 대응이 필요하지 않아요'],warn:['주의가 필요해요','LTV가 상승하고 있어요. 지금 대응하면 더 안전해요'],call:['마진콜 발생','즉시 대응이 필요해요. 담보를 추가하거나 상환해주세요'],liq:['청산 기준 도달','청산 안내를 확인해주세요']}[k];
+  return{sid:k==='call'?'RSK-01 · 마진콜':'RSK-01',title:'대출 상태',body:`
+  <div class="banner ${ST[k][2]}"><span class="bi">!</span><span><b>${head[0]}</b><span>${head[1]}</span></span></div>
+  <div class="card"><p class="ct">현재 상태 · ${l.id}</p>
+    <div class="row"><span>현재 LTV</span><span>${pct(lv)} ${pill(k)}</span></div>
+    <div class="row"><span>현재 가격</span><span>${W(price(l.asset))}</span></div>
+    <div class="row"><span>청산 가격</span><span>${W(liqPrice(l))}</span></div>
+    <div class="row"><span>안전 마진</span><span>${pct(margin)}</span></div>${bar(lv)}</div>
+  <div class="card"><p class="ct">권장 대응 방법</p>
+    <button class="item" data-go="RSK-03" data-loan="${l.id}"><span class="coin" style="background:#0E5E52">＋</span><span class="grow"><b>담보 추가하기</b><span>추가 자산을 예치해 LTV를 낮춰요</span></span><span>›</span></button>
+    <button class="item" data-go="RPM-01" data-loan="${l.id}"><span class="coin" style="background:#14201C">−</span><span class="grow"><b>일부 상환하기</b><span>대출금을 상환해 LTV를 낮춰요</span></span><span>›</span></button></div>
+  <div class="note">LTV가 ${P.liq}%에 도달하면 청산 절차가 시작될 수 있어요.</div>`,
+  cta:k==='liq'?`<button class="btn dark" data-go="LIQ-01" data-loan="${l.id}">청산 안내 보기</button>`:`<button class="btn" data-go="RSK-03" data-loan="${l.id}">지금 담보 추가하기</button>`}};
+
+V['RSK-03']=p=>{const l=loan(p.loan);const a=l.asset;
+  if(S.d.done){const r=S.d.done;return{sid:'RSK-03 · 완료',title:'담보 추가 완료',body:`
+    <div class="hero"><div class="ok">✓</div><h2>담보 추가 완료</h2><span class="sub">리스크가 낮아졌어요</span></div>
+    <div class="card"><div class="cmp"><div><small>변경 전</small>${pct(r.b)}</div>→<div><small>변경 후</small>${pct(r.a)}</div></div>
+      <div class="row"><span>현재 위험 상태</span><span>${pill(stat(r.a))}</span></div>
+      <div class="row"><span>청산 가격</span><span>${W(r.lpB)} → ${W(liqPrice(l))}</span></div>
+      <div class="row"><span>추가 자산</span><span>${Q(r.q,a)}</span></div><div class="row"><span>처리 시간</span><span>${r.t}</span></div></div>`,
+    cta:`<button class="btn sec" data-tab="MNG-01">대출 현황 보기</button><button class="btn" data-tab="HOM-01">홈으로 이동</button>`}}
+  const q=pnum(S.d.q);const av=S.wallet[a];const err=q>av?'사용 가능 잔액을 초과했어요':(q>0&&q<A[a].min?`최소 ${A[a].min} ${a} 이상 입력해주세요`:'');
+  const after=l.principal/((l.qty+(err?0:q))*price(a))*100;
+  return{sid:'RSK-03',title:'담보 추가',body:`
+  <div class="card"><div class="row"><span>현재 LTV</span><span>${pct(ltv(l))} ${pill(stat(ltv(l)))}</span></div><div class="row"><span>대출</span><span>${l.id} · ${A[a].name}</span></div></div>
+  <div class="card"><p class="ct">추가할 담보 수량</p>
+    <div class="field ${err?'err':''}"><input id="rq" data-in="q" inputmode="decimal" placeholder="0" value="${S.d.q??''}" aria-label="추가 수량"><em>${a}</em></div>
+    ${err?`<div class="msg">${err}</div>`:`<div class="hint">사용 가능 ${Q(av,a)} · 약 ${W(q*price(a))}</div>`}
+    <div class="chips">${[25,50,100].map(r=>`<button class="chip" data-act="fill" data-k="q" data-v="${(av*r/100).toFixed(A[a].dec)}">${r===100?'전체':r+'%'}</button>`).join('')}</div></div>
+  <div class="card"><p class="ct">예상 변화</p>
+    <div class="cmp"><div><small>추가 전</small>${pct(ltv(l))}</div>→<div><small>추가 후</small>${pct(after)}</div></div>
+    <div class="row"><span>위험도</span><span>${pill(stat(ltv(l)))} → ${pill(stat(after))}</span></div>
+    <div class="row"><span>청산 가격</span><span>${W(liqPrice(l))} → ${W(l.principal/((l.qty+(err?0:q))*P.liq/100))}</span></div></div>`,
+  cta:`<button class="btn" data-act="addColl" ${q>0&&!err?'':'disabled'}>담보 추가하기</button>`}};
+
+/* --- 대출 신청 --- */
+V['LON-01']=()=>{const dr=S.draft;return{sid:'LON-01',title:'대출 시작',body:`
+  <div><b style="font-size:19px">담보로 맡길 자산을 선택하세요</b><div class="sub" style="margin-top:4px">지갑에 보유한 자산만 담보로 사용할 수 있어요</div></div>
+  ${Object.keys(A).map(a=>{const h=S.wallet[a];const dis=h<A[a].min;return`<button class="item sel ${dr.asset===a?'on':''}" data-act="pick" data-v="${a}" ${dis?'disabled':''}>
+    <span class="coin c-${a}">${A[a].sym}</span><span class="grow"><b>${A[a].name} <span class="pill s-done" style="margin-left:4px">Max LTV ${A[a].max}%</span></b><span>${dis?'보유 자산 없음':'보유 '+Q(h,a)}</span></span><span class="r"><b>${W(price(a))}</b><span>현재 시세</span></span></button>`}).join('')}`,
+  cta:`<button class="btn" data-go="LON-01-2" ${dr.asset?'':'disabled'}>다음</button>`}};
+
+V['LON-01-2']=()=>{const a=S.draft.asset;const q=pnum(S.d.q??S.draft.qty);const h=S.wallet[a];
+  const err=q>h?'보유 수량을 초과했습니다':(q>0&&q<A[a].min?'최소 담보 수량 이상 입력해주세요':'');
+  return{sid:'LON-01',title:'담보 수량 입력',body:`
+  <div><b style="font-size:19px">담보 수량을 입력하세요</b><div class="sub" style="margin-top:4px">${A[a].name} (${a})</div></div>
+  <div class="card"><div class="field ${err?'err':''}"><input id="lq" data-in="q" inputmode="decimal" placeholder="0" value="${S.d.q??S.draft.qty??''}" aria-label="담보 수량"><em>${a}</em></div>
+    ${err?`<div class="msg">${err}</div>`:''}
+    <div class="row"><span>보유 수량</span><span>${Q(h,a)}</span></div>
+    <div class="row"><span>예상 담보 가치</span><span>${W(q*price(a))}</span></div>
+    <div class="row"><span>최대 대출 가능 금액</span><span style="color:#0E5E52">${W(q*price(a)*A[a].max/100)}</span></div>
+    <div class="chips">${[25,50,75,100].map(r=>`<button class="chip" data-act="fill" data-k="q" data-v="${(h*r/100).toFixed(A[a].dec)}">${r===100?'전체':r+'%'}</button>`).join('')}</div></div>
+  <div class="note">최소 담보 수량은 ${A[a].min} ${a}예요. 담보로 맡긴 자산은 대출 기간 동안 출금할 수 없어요.</div>`,
+  cta:`<button class="btn" data-act="lonQty" ${q>0&&!err?'':'disabled'}>다음</button>`}};
+
+V['LON-03']=()=>{const dr=S.draft,a=dr.asset;const cv=dr.qty*price(a),mx=Math.floor(cv*A[a].max/100/10000)*10000;
+  const amt=pnum(S.d.amt??dr.amt);const term=S.d.term??dr.term??12,rt=S.d.rtype??dr.rtype??'고정',mt=S.d.method??dr.method??'만기일시상환';
+  const err=amt>mx?'최대 대출 가능 금액을 초과했어요':(amt>0&&amt<1000000?'100만원 이상 입력해주세요':'');
+  const pay=amt&&!err?monthly(amt,RATE[rt],term,mt):0;const el=amt/cv*100;
+  return{sid:'LON-03',title:'대출 조건 선택',body:`
+  <div class="card"><label class="lb" for="la">희망 대출 금액</label>
+    <div class="field ${err?'err':''}"><input id="la" data-in="amt" data-money="1" inputmode="numeric" placeholder="0" value="${S.d.amt??(dr.amt?Number(dr.amt).toLocaleString('ko-KR'):'')}"><em>원</em></div>
+    ${err?`<div class="msg">${err}</div>`:`<div class="hint">최대 ${W(mx)} (담보 가치의 ${A[a].max}%)</div>`}
+    <div class="chips">${[25,50,75,100].map(r=>`<button class="chip" data-act="fill" data-k="amt" data-v="${(Math.floor(mx*r/100/10000)*10000).toLocaleString('ko-KR')}">${r===100?'최대':r+'%'}</button>`).join('')}</div>
+    <div><label class="lb" for="tm">대출 기간</label><select class="dd" id="tm" data-in="term">${[3,6,12].map(t=>`<option value="${t}" ${t==term?'selected':''}>${t}개월</option>`).join('')}</select></div>
+    <div><label class="lb" for="rt">금리 유형</label><select class="dd" id="rt" data-in="rtype">${['고정','변동'].map(t=>`<option ${t===rt?'selected':''}>${t}</option>`).join('')}</select></div>
+    <div><label class="lb" for="mt">상환 방식</label><select class="dd" id="mt" data-in="method">${['만기일시상환','원리금균등상환'].map(t=>`<option ${t===mt?'selected':''}>${t}</option>`).join('')}</select></div></div>
+  <div class="card"><p class="ct">예상 조건</p>
+    <div class="row"><span>예상 금리</span><span>연 ${RATE[rt]}% (${rt})</span></div>
+    <div class="row"><span>월 예상 ${mt==='만기일시상환'?'이자':'상환액'}</span><span>${pay?W(pay):'-'}</span></div>
+    <div class="row"><span>만기일</span><span>${addMonths(+term)}</span></div>
+    <div class="row"><span>실행 시 LTV</span><span>${amt&&!err?pct(el)+' '+pill(stat(el)):'-'}</span></div>
+    <div class="hint">선택한 조건에 따라 금리가 달라질 수 있어요.</div></div>`,
+  cta:`<button class="btn" data-act="lonCond" ${amt>0&&!err?'':'disabled'}>다음</button>`}};
+
+V['LON-04']=()=>{const dr=S.draft,a=dr.asset;const drop=S.d.drop??0;const p0=price(a),pr=p0*(1-drop/100);
+  const l0=dr.amt/(dr.qty*p0)*100,l1=dr.amt/(dr.qty*pr)*100;const lp=dr.amt/(dr.qty*P.liq/100);const m=(pr-lp)/pr*100;
+  return{sid:'LON-04',title:'대출 시뮬레이션',body:`
+  <div><b style="font-size:19px">가격이 내려가면 어떻게 될까요?</b><div class="sub" style="margin-top:4px">대출 전에 청산 위험을 미리 확인해보세요</div></div>
+  <div class="card"><p class="ct">현재 상태</p><div class="grid2"><div class="tile"><span>예상 LTV</span><b>${pct(l0)}</b></div><div class="tile"><span>청산 가격</span><b>${W(lp)}</b></div></div></div>
+  <div class="card"><p class="ct">가격 하락 시뮬레이션</p>
+    <label class="lb" for="dp">가격 하락 <b class="num" style="color:var(--a-ink)">-${drop}%</b></label>
+    <input type="range" id="dp" data-in="drop" min="0" max="50" step="1" value="${drop}">
+    <div class="row"><span>예상 가격</span><span>${W(pr)}</span></div>
+    <div class="row"><span>예상 LTV</span><span>${pct(l1)} ${pill(stat(l1))}</span></div>
+    ${bar(l1)}
+    <div class="row"><span>안전 마진</span><span style="color:${m<0?'var(--call)':'inherit'}">${pct(m)}</span></div>
+    <div class="note">${A[a].name} 가격이 ${((1-lp/p0)*100).toFixed(1)}% 이상 하락하면 청산 기준(LTV ${P.liq}%)에 도달해요.</div></div>`,
+  cta:`<button class="btn" data-go="LON-05">다음</button>`}};
+
+V['LON-05']=()=>{const dr=S.draft,c=S.d.c||{};const all=c.a&&c.b;
+  return{sid:'LON-05',title:'계약서 확인',body:`
+  <div class="card"><p class="ct">대출 계약 내용</p>
+    <div class="row"><span>대출 금액</span><span>${W(dr.amt)}</span></div>
+    <div class="row"><span>담보 자산</span><span>${A[dr.asset].name} (${dr.asset})</span></div>
+    <div class="row"><span>담보 수량</span><span>${Q(dr.qty,dr.asset)}</span></div>
+    <div class="row"><span>금리</span><span>연 ${RATE[dr.rtype]}% (${dr.rtype})</span></div>
+    <div class="row"><span>상환 방식</span><span>${dr.method}</span></div>
+    <div class="row"><span>만기일</span><span>${addMonths(dr.term)}</span></div>
+    <div class="row"><span>청산 기준</span><span>LTV ${P.liq}%</span></div></div>
+  <div class="card"><p class="ct">약관 동의</p>
+    <button class="chk ${all?'on':''}" data-act="agree" data-v="all"><i>✓</i><span><b>전체 동의</b></span></button>
+    <button class="chk ${c.a?'on':''}" data-act="agree" data-v="a"><i>✓</i><span><b>대출 약관 동의 (필수)</b><span>대출 이용 약관 및 청산 정책을 확인했으며 동의합니다</span></span></button>
+    <button class="chk ${c.b?'on':''}" data-act="agree" data-v="b"><i>✓</i><span><b>개인정보 처리 동의 (필수)</b><span>개인정보 수집·이용 및 제3자 제공에 동의합니다</span></span></button></div>`,
+  cta:`<button class="btn" data-go="LON-06" ${all?'':'disabled'}>전자서명 진행</button>`}};
+
+V['LON-06']=()=>({sid:'LON-06',title:'전자서명',body:`
+  <div><b style="font-size:19px">계약 완료를 위해 서명해주세요</b><div class="sub" style="margin-top:4px">아래 영역에 손가락이나 마우스로 서명하세요</div></div>
+  <div class="card"><canvas class="sig" id="sig" aria-label="서명 입력 영역"></canvas>
+    <div class="row"><span class="hint">${S.d.signed?'서명 입력 완료':'서명을 입력해주세요'}</span><button class="lnk" data-act="clearSig">다시 작성</button></div></div>
+  <div class="note">전자서명은 법적 효력을 가질 수 있어요. 본인 확인 후 신중하게 서명해주세요.</div>`,
+  cta:`<button class="btn" data-act="signDone" ${S.d.signed?'':'disabled'}>서명 완료</button>`});
+
+V['LON-07']=()=>{const dr=S.draft;const ph=S.d.phase??0;
+  if(ph<3)return{sid:'LON-07',title:'대출 처리 중',noBack:true,body:`
+    <div class="hero"><h2>대출 실행을 진행하고 있어요</h2><span class="sub">처리 상황에 따라 시간이 달라질 수 있어요</span></div>
+    <div class="card"><ul class="steps">${['계약 확인 완료','심사 진행 중','대출 실행 예정'].map((s,i)=>`<li class="${i<ph?'done':i===ph?'now':''}"><i>${i<ph?'✓':''}</i>${s}</li>`).join('')}</ul></div>
+    <div class="card"><div class="row"><span>신청 금액</span><span>${W(dr.amt)}</span></div><div class="row"><span>담보 자산</span><span>${Q(dr.qty,dr.asset)}</span></div><div class="row"><span>예상 완료</span><span>약 10분 후</span></div></div>`};
+  const l=loan(S.d.newId);return{sid:'LON-07 · 완료',title:'대출 완료',noBack:true,body:`
+    <div class="hero"><div class="ok">✓</div><h2>대출 완료</h2><span class="sub">대출이 정상적으로 실행되었어요</span></div>
+    <div class="card"><div class="row"><span>대출 번호</span><span>${l.id}</span></div><div class="row"><span>대출 금액</span><span>${W(l.principal)}</span></div>
+      <div class="row"><span>입금 계좌</span><span>SAfe 원화 지갑</span></div><div class="row"><span>현재 LTV</span><span>${pct(ltv(l))} ${pill(stat(ltv(l)))}</span></div><div class="row"><span>만기일</span><span>${l.end}</span></div></div>
+    <div class="note">담보 가격 변동을 주기적으로 확인하고, LTV ${P.warn}%부터 받는 알림에 맞춰 리스크를 관리하세요.</div>`,
+    cta:`<button class="btn sec" data-tab="MNG-01">대출 현황 보기</button><button class="btn" data-tab="HOM-01">홈으로 이동</button>`}};
+
+/* --- 대출 관리 / 상환 --- */
+V['MNG-01']=()=>{const f=S.d.filter??'전체';const ls=S.loans.filter(l=>f==='전체'||(f==='진행 중'?l.status==='active':l.status!=='active'));const ac=active();
+  const tp=ac.reduce((s,l)=>s+l.principal,0),avg=ac.length?ac.reduce((s,l)=>s+ltv(l),0)/ac.length:0;
+  return{sid:'MNG-01',home:true,tab:'MNG-01',title:'대출 관리/상환',body:`
+  <div class="card"><div class="grid2"><div class="tile"><span>진행 중 대출</span><b>${ac.length}건 / 전체 ${S.loans.length}건</b></div><div class="tile"><span>평균 LTV</span><b>${pct(avg)}</b></div></div>
+    <div class="row"><span>총 대출 잔액</span><span>${W(tp)}</span></div></div>
+  <div class="chips">${['전체','진행 중','완료'].map(x=>`<button class="chip ${x===f?'on':''}" data-act="set" data-k="filter" data-v="${x}">${x}</button>`).join('')}</div>
+  ${ls.length?ls.map(l=>{const on=l.status==='active';const k=on?stat(ltv(l)):null;return`<button class="card" style="border:0;text-align:left;color:inherit" ${on?`data-go="MNG-02" data-loan="${l.id}"`:''}>
+    <div class="row"><b style="color:var(--a-ink)">${l.id}</b>${on?pill(k):`<span class="pill s-done">${l.status==='liquidated'?'청산 완료':'상환 완료'}</span>`}</div>
+    <div class="row"><span>담보</span><span>${Q(l.qty,l.asset)}</span></div>
+    <div class="row"><span>대출 잔액</span><span>${W(l.principal)}</span></div>
+    ${on?`<div class="row"><span>현재 LTV</span><span>${pct(ltv(l))}</span></div>`:''}</button>`}).join(''):'<div class="empty">진행 중인 대출이 없습니다</div>'}`}};
+
+V['MNG-02']=p=>{const l=loan(p.loan);const lv=ltv(l);
+  return{sid:'MNG-02',title:'대출 상세',body:`
+  <div class="card"><div class="row"><span>${l.id}</span>${pill(stat(lv))}</div><span class="big">${W(l.principal)}</span>${bar(lv)}</div>
+  <div class="card"><p class="ct">대출 정보</p>
+    <div class="row"><span>담보</span><span>${Q(l.qty,l.asset)}</span></div><div class="row"><span>담보 가치</span><span>${W(val(l))}</span></div>
+    <div class="row"><span>현재 LTV</span><span>${pct(lv)}</span></div><div class="row"><span>적용 금리</span><span>연 ${l.rate}% (${l.rtype})</span></div>
+    <div class="row"><span>상환 방식</span><span>${l.method}</span></div><div class="row"><span>실행일 · 만기일</span><span>${l.start} · ${l.end}</span></div></div>
+  <div class="card"><p class="ct">청산 리스크</p><div class="row"><span>현재 가격</span><span>${W(price(l.asset))}</span></div><div class="row"><span>청산 가격</span><span>${W(liqPrice(l))}</span></div>
+    <div class="row"><span>미납 이자</span><span>${W(l.interest)}</span></div><button class="lnk" style="align-self:flex-start" data-go="MNG-04" data-loan="${l.id}">이자 납부하기 ›</button></div>`,
+  cta:`<button class="btn sec" data-go="RSK-03" data-loan="${l.id}">담보 추가</button><button class="btn" data-go="RPM-01" data-loan="${l.id}">상환하기</button>`}};
+
+V['MNG-04']=p=>{const l=loan(p.loan);const amt=pnum(S.d.amt);const err=amt>l.interest?'미납 이자보다 많이 입력했어요':'';
+  return{sid:'MNG-04',title:'이자 납부',body:`
+  <div class="card"><div class="row"><span>미납 이자</span><span>${W(l.interest)}</span></div><div class="row"><span>남은 대출 잔액</span><span>${W(l.principal)}</span></div></div>
+  <div class="card"><label class="lb" for="ia">납부 금액</label><div class="field ${err?'err':''}"><input id="ia" data-in="amt" data-money="1" inputmode="numeric" placeholder="0" value="${S.d.amt??''}"><em>원</em></div>
+    ${err?`<div class="msg">${err}</div>`:''}
+    <div class="chips"><button class="chip" data-act="fill" data-k="amt" data-v="${Math.round(l.interest).toLocaleString('ko-KR')}">전액 납부</button><button class="chip" data-act="fill" data-k="amt" data-v="${Math.round(l.interest/2).toLocaleString('ko-KR')}">50%</button></div>
+    <div class="row"><span>납부 후 미납 이자</span><span>${W(Math.max(0,l.interest-(err?0:amt)))}</span></div></div>
+  <div class="note">이자를 납부해도 대출 원금은 그대로예요. 미납 이자는 연체 이자로 바뀔 수 있어요.</div>`,
+  cta:`<button class="btn" data-act="payInt" ${amt>0&&!err?'':'disabled'}>이자 납부하기</button>`}};
+
+V['RPM-01']=p=>{const m=S.d.m;return{sid:'RPM-01',title:'상환하기',body:`
+  <div><b style="font-size:19px">상환 방식을 선택하세요</b><div class="sub" style="margin-top:4px">${p.loan} · 잔액 ${W(loan(p.loan).principal)}</div></div>
+  ${[['part','일부 상환','원하는 금액만큼 상환해요'],['full','전액 상환','남은 원금과 이자를 모두 상환하고 담보를 돌려받아요'],['int','이자만 납부','미납 이자만 납부해요']].map(([k,t,s])=>`<button class="item sel ${m===k?'on':''}" data-act="set" data-k="m" data-v="${k}"><span class="grow"><b>${t}</b><span>${s}</span></span></button>`).join('')}`,
+  cta:`<button class="btn" data-act="rpmNext" ${m?'':'disabled'}>다음</button>`}};
+
+V['RPM-01-2']=p=>{const l=loan(p.loan);const full=p.full;const max=l.principal+l.interest;
+  const amt=full?max:pnum(S.d.amt);const err=amt>max?'남은 대출 금액을 초과했어요':(amt>0&&amt<10000?'최소 상환 가능 금액(1만원) 이상 입력해주세요':'');
+  const toInt=Math.min(amt,l.interest),toP=Math.max(0,amt-toInt);const np=l.principal-toP;const nl=np/val(l)*100;
+  const rel=np<=0?l.qty:Math.max(0,l.qty-np/(price(l.asset)*0.40));
+  return{sid:'RPM-01',title:'상환 금액 입력',body:`
+  <div class="card"><div class="row"><span>남은 원금</span><span>${W(l.principal)}</span></div><div class="row"><span>미납 이자</span><span>${W(l.interest)}</span></div><div class="row"><span>현재 LTV</span><span>${pct(ltv(l))}</span></div></div>
+  <div class="card"><label class="lb" for="ra">상환 금액</label>
+    <div class="field ${err?'err':''}"><input id="ra" data-in="amt" data-money="1" inputmode="numeric" placeholder="0" value="${full?Math.round(max).toLocaleString('ko-KR'):(S.d.amt??'')}" ${full?'readonly':''}><em>원</em></div>
+    ${err?`<div class="msg">${err}</div>`:''}
+    ${full?'<div class="hint">전액 상환은 원금과 미납 이자를 합한 금액으로 고정돼요</div>':`<div class="chips">${[10,25,50].map(r=>`<button class="chip" data-act="fill" data-k="amt" data-v="${(Math.round(l.principal*r/100/1000)*1000).toLocaleString('ko-KR')}">${r}%</button>`).join('')}<button class="chip" data-act="fill" data-k="amt" data-v="${Math.round(max).toLocaleString('ko-KR')}">전액</button></div>`}</div>
+  <div class="card"><p class="ct">상환 후 예상</p>
+    <div class="row"><span>이자 우선 차감</span><span>${W(err?0:toInt)}</span></div>
+    <div class="row"><span>원금 상환</span><span>${W(err?0:toP)}</span></div>
+    <div class="row"><span>상환 후 잔액</span><span>${W(err?l.principal:np)}</span></div>
+    <div class="row"><span>변경 후 LTV</span><span>${err?'-':pct(nl)+' '+pill(stat(nl))}</span></div>
+    <div class="row"><span>해제 가능 담보</span><span>${err?'-':Q(rel,l.asset)}</span></div>
+    <div class="hint">해제 가능 담보는 상환 후 LTV 40%를 유지하는 범위로 계산해요.</div></div>`,
+  cta:`<button class="btn" data-act="rpmAmt" ${amt>0&&!err?'':'disabled'}>다음</button>`}};
+
+V['RPM-03']=p=>{const l=loan(p.loan);const ph=S.d.phase;
+  if(ph!==undefined)return{sid:'RPM-03 · 처리 중',title:'상환 처리 중',noBack:true,body:`
+    <div class="hero"><h2>상환을 진행하고 있어요</h2><span class="sub">화면을 닫아도 상환 처리는 계속 진행돼요</span></div>
+    <div class="card"><ul class="steps">${['결제 확인','상환 반영','담보 상태 업데이트'].map((s,i)=>`<li class="${i<ph?'done':i===ph?'now':''}"><i>${i<ph?'✓':''}</i>${s}</li>`).join('')}</ul></div>
+    <div class="card"><div class="row"><span>상환 금액</span><span>${W(p.amt)}</span></div><div class="row"><span>예상 처리 시간</span><span>약 3분</span></div></div>`};
+  const toInt=Math.min(p.amt,l.interest),np=l.principal-(p.amt-toInt);
+  return{sid:'RPM-03',title:'상환 확인',body:`
+  <div><b style="font-size:19px">아래 내용을 확인하고 진행해주세요</b></div>
+  <div class="card"><div class="row"><span>상환 방식</span><span>${p.full?'전액 상환':'일부 상환'}</span></div><div class="row"><span>상환 금액</span><span>${W(p.amt)}</span></div>
+    <div class="row"><span>이자 / 원금</span><span>${W(toInt)} / ${W(p.amt-toInt)}</span></div><div class="row"><span>남은 대출 잔액</span><span>${W(np)}</span></div>
+    <div class="row"><span>변경 후 LTV</span><span>${pct(np/val(l)*100)}</span></div></div>
+  <div class="note">상환을 진행한 뒤에는 취소할 수 없어요. 시장 변동에 따라 담보 해제 가능 수량이 달라질 수 있어요.</div>`,
+  cta:`<button class="btn sec" data-act="back">취소</button><button class="btn" data-act="rpmGo">상환 진행하기</button>`}};
+
+V['RPM-05']=p=>{const l=loan(p.loan);const r=p.r;const closed=l.status!=='active';
+  const rel=closed?0:Math.max(0,l.qty-l.principal/(price(l.asset)*0.40));
+  return{sid:'RPM-05',title:'상환 완료',noBack:true,body:`
+  <div class="hero"><div class="ok">✓</div><h2>상환 완료</h2><span class="sub">상환이 정상적으로 완료되었어요</span></div>
+  <div class="card">${closed?`<div class="row"><span>대출 상태</span><span><span class="pill s-done">상환 완료</span></span></div><div class="row"><span>지갑으로 반환된 담보</span><span>${Q(r.ret,l.asset)}</span></div>`:
+    `<div class="cmp"><div><small>상환 전 LTV</small>${pct(r.b)}</div>→<div><small>상환 후</small>${pct(ltv(l))}</div></div><div class="row"><span>남은 대출 잔액</span><span>${W(l.principal)}</span></div>`}
+    <div class="row"><span>상환 금액</span><span>${W(r.amt)}</span></div><div class="row"><span>처리 시간</span><span>${r.t}</span></div></div>
+  ${!closed&&rel>0.00005&&!S.d.released?`<div class="card"><p class="ct">담보 해제 안내</p><div class="row"><span>해제 가능</span><span>${Q(rel,l.asset)}</span></div>
+    <div class="row"><span>해제 후 예상 LTV</span><span>40.0%</span></div><div class="hint">담보를 해제하면 LTV가 올라가 시장 변동 시 청산 위험이 커질 수 있어요.</div>
+    <button class="btn sec" data-act="release" data-v="${rel}">담보 해제하기</button></div>`:''}`,
+  cta:`<button class="btn sec" data-tab="MNG-01">대출 현황 보기</button><button class="btn" data-tab="HOM-01">홈으로 이동</button>`}};
+
+/* --- 청산 --- */
+V['LIQ-01']=p=>{const l=loan(p.loan);const lv=ltv(l);const ph=S.d.phase;
+  if(ph!==undefined)return{sid:'LIQ-01 · 청산 실행 중',title:'청산 진행 중',noBack:true,body:`
+    <div class="hero"><h2>청산을 진행하고 있어요</h2><span class="sub">완료되면 결과 화면으로 이동해요</span></div>
+    <div class="card"><ul class="steps">${['청산 조건 확인 완료','담보 자산 정리 중','대출 상환 반영 중','잔여 자산 계산 중'].map((s,i)=>`<li class="${i<ph?'done':i===ph?'now':''}"><i>${i<ph?'✓':''}</i>${s}</li>`).join('')}</ul></div>`};
+  const reached=lv>=P.liq;
+  return{sid:'LIQ-01',title:'청산 안내',body:`
+  <div class="banner b-liq"><span class="bi">!</span><span><b>${reached?'청산 기준에 도달했어요':'아직 청산 기준 전이에요'}</b><span>${reached?'담보 자산 청산이 시작됩니다':'패널에서 가격을 낮추면 청산 흐름을 볼 수 있어요'}</span></span></div>
+  <div class="card"><div class="row"><span>현재 LTV</span><span>${pct(lv)} ${pill(stat(lv))}</span></div><div class="row"><span>청산 기준 LTV</span><span>${P.liq}%</span></div>
+    <div class="row"><span>현재 가격</span><span>${W(price(l.asset))}</span></div><div class="row"><span>청산 가격</span><span>${W(liqPrice(l))}</span></div></div>
+  <div class="card"><p class="ct">청산 절차</p><ul class="steps"><li class="done"><i>1</i>담보 자산 일부 매도</li><li class="done"><i>2</i>대출 잔액·미납 이자 상환</li><li class="done"><i>3</i>잔여 자산 지갑으로 반환</li></ul>
+    <div class="hint">청산 수수료 2%가 적용돼요 (예시 정책).</div></div>`,
+  cta:reached?`<button class="btn dark" data-act="liqGo">확인했어요</button>`:`<button class="btn sec" data-act="back">돌아가기</button>`}};
+
+V['LIQ-03']=p=>{const r=p.r;return{sid:'LIQ-03',title:'청산 완료',noBack:true,body:`
+  <div class="hero"><div class="ok" style="background:#14201C">✓</div><h2>청산이 완료되었어요</h2><span class="sub">남은 담보는 지갑으로 반환했어요</span></div>
+  <div class="card"><div class="row"><span>청산된 자산</span><span>${Q(r.sold,r.a)}</span></div><div class="row"><span>상환된 금액</span><span>${W(r.repaid)}</span></div>
+    <div class="row"><span>청산 수수료</span><span>${W(r.fee)}</span></div><div class="row"><span>반환 자산</span><span>${Q(r.ret,r.a)}</span></div><div class="row"><span>처리 시간</span><span>${r.t}</span></div></div>`,
+  cta:`<button class="btn sec" data-tab="WAL-01">지갑으로 이동</button><button class="btn" data-tab="HOM-01">홈으로 이동</button>`}};
+
+/* --- 지갑 / 내역 --- */
+V['WAL-01']=()=>{const tot=Object.keys(A).reduce((s,a)=>s+S.wallet[a]*price(a),0);const lock={};active().forEach(l=>lock[l.asset]=(lock[l.asset]||0)+l.qty);
+  return{sid:'WAL-01',home:true,tab:'WAL-01',title:'지갑',body:`
+  <div class="card"><span class="sub">보유 자산 (담보 제외)</span><span class="big">${W(tot)}</span>
+    <div class="grid2"><button class="btn sec" data-act="na">입금하기</button><button class="btn sec" data-act="na">출금하기</button></div></div>
+  <div class="card"><p class="ct">보유 자산</p>${Object.keys(A).map(a=>`<div class="item"><span class="coin c-${a}">${A[a].sym}</span><span class="grow"><b>${A[a].name}</b><span>${lock[a]?'담보 '+Q(lock[a],a)+' 잠김':a}</span></span><span class="r"><b>${Q(S.wallet[a],a)}</b><span>${W(S.wallet[a]*price(a))}</span></span></div>`).join('')}</div>
+  <div class="note">담보로 설정된 자산은 대출을 상환하기 전까지 출금할 수 없어요.</div>`,
+  cta:`<button class="btn" data-go="LON-01">담보로 대출 신청하기</button>`}};
+
+V['HIS-01']=()=>{const f=S.d.filter??'전체';const ls=S.log.filter(x=>f==='전체'||x.k===f);
+  return{sid:'HIS-01',home:true,tab:'HIS-01',title:'내역',body:`
+  <div class="chips">${['전체','대출','상환','담보','청산'].map(x=>`<button class="chip ${x===f?'on':''}" data-act="set" data-k="filter" data-v="${x}">${x}</button>`).join('')}</div>
+  <div class="card" style="gap:4px">${ls.length?ls.map(x=>`<div class="item" style="padding:10px 0;border-bottom:1px solid var(--a-line)"><span class="grow"><b>${x.t}</b><span>${x.d}</span></span><span class="r"><b>${x.v}</b><span>${x.s}</span></span></div>`).join(''):'<div class="empty">거래 내역이 없습니다</div>'}</div>`}};
+
+/* ---------- 렌더 ---------- */
+const app=document.getElementById('app');
+const TABS=[['HOM-01','홈',I.home],['HIS-01','내역',I.list],['WAL-01','지갑',I.wallet],['MNG-01','관리/상환',I.loan]];
+function render(nav){
+  const ae=document.activeElement;const fid=ae&&app.contains(ae)?ae.id:null;const sel=fid&&ae.selectionStart!=null?[ae.selectionStart,ae.selectionEnd]:null;
+  const oldScr=app.querySelector('.scr');const st=nav?0:(oldScr?oldScr.scrollTop:0);
+  const c=cur();const v=V[c.id](c);
+  const idc=S.showId?`<span class="sid">${v.sid}</span>`:'';
+  let hd;
+  if(v.noHead)hd=`<div class="hd" style="justify-content:flex-end">${idc}</div>`;
+  else if(c.id==='HOM-01')hd=`<div class="hd"><span class="logo">SA<b>fe</b></span>${idc}<button class="ib" data-act="na" aria-label="알림">${I.bell}</button><button class="ib" data-act="na" aria-label="메뉴">${I.menu}</button></div>`;
+  else hd=`<div class="hd">${S.stack.length>1&&!v.noBack?`<button class="ib" data-act="back" aria-label="뒤로가기">${I.back}</button>`:''}<h1>${v.title||''}</h1>${idc}</div>`;
+  app.innerHTML=`<div class="sbar"><span>9:41</span><span>●●● <i></i></span></div>${hd}<div class="scr">${v.body}</div>${v.cta?`<div class="foot">${v.cta}</div>`:''}${v.tab?`<nav class="gnb">${TABS.map(([id,n,ic])=>`<button class="${v.tab===id?'on':''}" data-tab="${id}">${ic}${n}</button>`).join('')}</nav>`:''}${S.toast?`<div class="toast" role="status">${S.toast}</div>`:''}`;
+  const scr=app.querySelector('.scr');if(scr)scr.scrollTop=st;
+  if(fid){const el=document.getElementById(fid);if(el){el.focus({preventScroll:true});if(sel&&el.setSelectionRange)try{el.setSelectionRange(sel[0],sel[1])}catch(e){}}}
+  if(c.id==='LON-06')initSig();
+  panel();
+}
+
+/* ---------- 이벤트 ---------- */
+app.addEventListener('click',e=>{
+  const b=e.target.closest('[data-go],[data-tab],[data-act]');if(!b||!app.contains(b)||b.disabled)return;
+  const c=cur();
+  if(b.dataset.tab)return tab(b.dataset.tab);
+  if(b.dataset.go){const id=b.dataset.go;if(id==='LON-01'){S.draft={}}return go(id,b.dataset.loan?{loan:b.dataset.loan}:{})}
+  const a=b.dataset.act,v=b.dataset.v;
+  if(a==='back')return back();
+  if(a==='na')return toast('프로토타입 범위 밖의 기능이에요');
+  if(a==='set'){S.d[b.dataset.k]=v;return render()}
+  if(a==='fill'){S.d[b.dataset.k]=v;return render()}
+  if(a==='login'){S.d.tried=true;if(!S.d.pw&&b.classList.contains('btn'))return render();return tab('HOM-01')}
+  if(a==='pick'){S.draft.asset=v;S.draft.qty=null;return render()}
+  if(a==='lonQty'){S.draft.qty=pnum(S.d.q??S.draft.qty);return go('LON-03')}
+  if(a==='lonCond'){Object.assign(S.draft,{amt:pnum(S.d.amt??S.draft.amt),term:+(S.d.term??S.draft.term??12),rtype:S.d.rtype??S.draft.rtype??'고정',method:S.d.method??S.draft.method??'만기일시상환'});return go('LON-04')}
+  if(a==='agree'){const c2=S.d.c||{};if(v==='all'){const on=!(c2.a&&c2.b);S.d.c={a:on,b:on}}else{c2[v]=!c2[v];S.d.c=c2}return render()}
+  if(a==='clearSig'){S.d.signed=false;return render()}
+  if(a==='signDone'){go('LON-07');return run(3,800,createLoan)}
+  if(a==='addColl'){const l=loan(c.loan),q=pnum(S.d.q);const b4=ltv(l),lpB=liqPrice(l);S.wallet[l.asset]-=q;l.qty+=q;
+    S.log.unshift({k:'담보',t:'담보 추가 · '+l.id,v:Q(q,l.asset),d:now(),s:'완료'});S.d={done:{b:b4,a:ltv(l),lpB,q,t:now()}};return render(true)}
+  if(a==='payInt'){const l=loan(c.loan),amt=pnum(S.d.amt);l.interest-=amt;S.log.unshift({k:'상환',t:'이자 납부 · '+l.id,v:W(amt),d:now(),s:'완료'});back();return toast(W(amt)+' 이자를 납부했어요')}
+  if(a==='rpmNext'){const m=S.d.m;if(m==='int')return go('MNG-04',{loan:c.loan});return go('RPM-01-2',{loan:c.loan,full:m==='full'})}
+  if(a==='rpmAmt'){const l=loan(c.loan);const amt=c.full?l.principal+l.interest:pnum(S.d.amt);return go('RPM-03',{loan:c.loan,amt,full:c.full||amt>=l.principal+l.interest})}
+  if(a==='rpmGo'){return run(3,700,()=>doRepay(c))}
+  if(a==='release'){const l=loan(c.loan),q=+v;l.qty-=q;S.wallet[l.asset]+=q;S.log.unshift({k:'담보',t:'담보 해제 · '+l.id,v:Q(q,l.asset),d:now(),s:'완료'});S.d.released=true;return toast(Q(q,l.asset)+'를 지갑으로 돌려드렸어요')}
+  if(a==='liqGo'){return run(4,700,()=>doLiq(c))}
+});
+app.addEventListener('input',e=>{const k=e.target.dataset.in;if(!k)return;let v=e.target.value;
+  if(e.target.dataset.money){const n=v.replace(/[^\d]/g,'');v=n?Number(n).toLocaleString('ko-KR'):''}
+  else if(e.target.inputMode==='decimal'){v=v.replace(/[^\d.]/g,'').replace(/(\..*)\./g,'$1')}
+  if(e.target.type==='range')v=+v;
+  S.d[k]=v;render()});
+app.addEventListener('change',e=>{const k=e.target.dataset.in;if(k&&e.target.tagName==='SELECT'){S.d[k]=e.target.value;render()}});
+
+function createLoan(){const dr=S.draft;const n=String(S.loans.length+1).padStart(3,'0');const id='LOAN-'+n;
+  S.wallet[dr.asset]-=dr.qty;
+  S.loans.push({id,asset:dr.asset,qty:dr.qty,principal:dr.amt,rtype:dr.rtype,rate:RATE[dr.rtype],method:dr.method,term:dr.term,start:TODAY,end:addMonths(dr.term).replace(/\. /g,'.').replace(/\.$/,''),interest:0,status:'active'});
+  S.log.unshift({k:'대출',t:'대출 실행 · '+id,v:'+'+W(dr.amt),d:now(),s:'완료'},{k:'담보',t:'담보 예치 · '+dr.asset,v:Q(dr.qty,dr.asset),d:now(),s:'완료'});
+  S.d.newId=id}
+function doRepay(c){const l=loan(c.loan);const b4=ltv(l);const toInt=Math.min(c.amt,l.interest);l.interest-=toInt;l.principal-=c.amt-toInt;let ret=0;
+  if(l.principal<=1){l.principal=0;l.status='repaid';ret=l.qty;S.wallet[l.asset]+=ret}
+  S.log.unshift({k:'상환',t:(l.status==='repaid'?'전액 상환 · ':'일부 상환 · ')+l.id,v:W(c.amt),d:now(),s:'완료'});
+  S.stack.pop();S.stack.push({id:'RPM-05',loan:l.id,r:{b:b4,amt:c.amt,ret,t:now()}});S.d={}}
+function doLiq(c){const l=loan(c.loan);const pr=price(l.asset);const debt=l.principal+l.interest;const fee=debt*0.02;
+  const sold=Math.min(l.qty,(debt+fee)/pr);const ret=l.qty-sold;S.wallet[l.asset]+=ret;
+  const r={a:l.asset,sold,repaid:debt,fee,ret,t:now()};l.principal=0;l.interest=0;l.status='liquidated';
+  S.log.unshift({k:'청산',t:'청산 완료 · '+l.id,v:Q(sold,l.asset),d:now(),s:'완료'});
+  S.stack=[{id:'HOM-01'},{id:'LIQ-03',r}];S.d={}}
+
+/* ---------- 서명 ---------- */
+function initSig(){const cv=document.getElementById('sig');if(!cv)return;const r=cv.getBoundingClientRect();const dpr=window.devicePixelRatio||1;
+  cv.width=r.width*dpr;cv.height=r.height*dpr;const x=cv.getContext('2d');x.scale(dpr,dpr);x.lineWidth=2.4;x.lineCap='round';x.lineJoin='round';x.strokeStyle='#14201C';
+  if(!S.d.signed)S.d.sigPath=[];
+  S.d.sigPath.forEach(s=>{x.beginPath();s.forEach((p,i)=>i?x.lineTo(p[0],p[1]):x.moveTo(p[0],p[1]));x.stroke()});
+  let drawing=false,stroke=null;
+  const pt=e=>{const b=cv.getBoundingClientRect();return[e.clientX-b.left,e.clientY-b.top]};
+  cv.addEventListener('pointerdown',e=>{drawing=true;cv.setPointerCapture(e.pointerId);const p=pt(e);stroke=[p];x.beginPath();x.moveTo(p[0],p[1])});
+  cv.addEventListener('pointermove',e=>{if(!drawing)return;const p=pt(e);stroke.push(p);x.lineTo(p[0],p[1]);x.stroke()});
+  cv.addEventListener('pointerup',()=>{if(!drawing)return;drawing=false;(S.d.sigPath=S.d.sigPath||[]).push(stroke);if(stroke.length>3&&!S.d.signed){S.d.signed=true;render()}});
+}
+
+/* ---------- 패널 ---------- */
+const mkt=document.getElementById('mkt');
+const SCEN=[['ok','안정',null],['warn','주의',54],['call','마진콜',62],['liq','청산',68]];
+function scenF(t){const w=worst()||S.loans[0];return w.principal/(w.qty*BASE[w.asset]*t/100)*100}
+function panel(){
+  document.getElementById('pf').textContent=(S.f>=100?'+':'')+(S.f-100)+'%';mkt.value=S.f;
+  document.getElementById('ptbl').innerHTML=Object.keys(A).map(a=>`<tr><td>${A[a].name} (${a})</td><td>${W(price(a))}</td></tr>`).join('');
+  const w=worst();const k=w?stat(ltv(w)):'ok';
+  document.getElementById('scen').innerHTML=SCEN.map(([id,n])=>`<button class="pchip ${id===k?'on':''}" data-scen="${id}"><span class="dot" style="background:var(--${id})"></span>${n}</button>`).join('');
+  document.getElementById('tgid').textContent=S.showId?'화면 ID 숨기기':'화면 ID 보이기';
+}
+mkt.addEventListener('input',()=>{S.f=+mkt.value;render()});
+document.getElementById('scen').addEventListener('click',e=>{const b=e.target.closest('[data-scen]');if(!b)return;const s=SCEN.find(x=>x[0]===b.dataset.scen);
+  if(!active().length)return toast('진행 중인 대출이 없어요. 처음 상태로 돌려보세요');
+  S.f=s[2]?Math.round(scenF(s[2])):100;S.f=Math.max(30,Math.min(130,S.f));render()});
+const JUMP=[['ONB-01','로그인'],['HOM-01','홈 대시보드'],['HOM-02','LTV 상세'],['RSK-01','리스크·마진콜'],['RSK-03','담보 추가'],['LON-01','대출 신청'],['MNG-01','대출 관리'],['MNG-02','대출 상세'],['RPM-01','상환하기'],['LIQ-01','청산 안내'],['WAL-01','지갑'],['HIS-01','거래 내역']];
+document.getElementById('jump').innerHTML=JUMP.map(([id,n])=>`<button data-j="${id}"><code>${id}</code><span>${n}</span></button>`).join('');
+document.getElementById('jump').addEventListener('click',e=>{const b=e.target.closest('[data-j]');if(!b)return;const id=b.dataset.j;
+  const TAB=['HOM-01','HIS-01','WAL-01','MNG-01','ONB-01'];if(TAB.includes(id))return tab(id);
+  const w=worst();if(id==='LON-01'){S.draft={};S.stack=[{id:'HOM-01'}];return go('LON-01')}
+  if(!w){tab('HOM-01');return toast('진행 중인 대출이 없어요')}
+  S.stack=[{id:'HOM-01'}];go(id,{loan:w.id})});
+document.getElementById('tgid').addEventListener('click',()=>{S.showId=!S.showId;render()});
+document.getElementById('reset').addEventListener('click',()=>{tick++;S=fresh();render(true)});
+
+render(true);
+})();
+</script>
+
+</body>
+</html>
